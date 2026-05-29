@@ -1,56 +1,15 @@
-// Модуль для работы с хранилищем
-class UserStorage {
-    saveUserName(name) {
-        localStorage.setItem('catalog_user', name);
-    }
-
-    getUserName() {
-        return localStorage.getItem('catalog_user');
-    }
-}
-
-// Модуль для работы с API
-class CountriesAPI {
-    async fetchAllCountries() {
-        console.log('Начинаем загрузку стран...');
-        
-        try {
-            const response = await fetch('https://restcountries.com/v3.1/all?fields=name,capital,region,population,area,independent,flags,languages');
-            
-            console.log('Статус ответа:', response.status);
-            
-            if (!response.ok) {
-                throw new Error(`HTTP ошибка: ${response.status}`);
-            }
-            
-            const data = await response.json();
-            console.log('Получено стран:', data.length);
-            
-            return data.map(country => ({
-                name: country.name?.common || 'Unknown',
-                officialName: country.name?.official || 'Unknown',
-                capital: country.capital ? country.capital[0] : 'Нет столицы',
-                region: country.region || 'Unknown',
-                population: country.population || 0,
-                area: country.area || 0,
-                independent: country.independent === true,
-                flagUrl: country.flags?.svg || country.flags?.png || '',
-                languages: country.languages ? Object.values(country.languages) : []
-            }));
-            
-        } catch (error) {
-            console.error('Ошибка загрузки:', error);
-            throw error;
-        }
-    }
-}
+// Импортируем модули
+import UserStorage from './modules/storage.js';
+import CountriesAPI from './modules/api.js';
+import CountriesUI from './modules/ui.js';
 
 // Главное приложение
 class App {
     constructor() {
         this.storage = new UserStorage();
         this.api = new CountriesAPI();
-        this.allCountries = []; 
+        this.ui = new CountriesUI();
+        this.allCountries = [];
         this.init();
     }
 
@@ -81,7 +40,7 @@ class App {
             if (name && name.length > 0) {
                 this.storage.saveUserName(name);
                 this.showMainApp(name);
-                this.loadCountries(); 
+                this.loadCountries();
             } else {
                 alert('Пожалуйста, введите ваше имя');
             }
@@ -102,40 +61,24 @@ class App {
     }
 
     async loadCountries() {
-        console.log('Загружаем страны...');
+        const mainContent = document.querySelector('.main-content .container');
+        
+        // Показываем загрузку через UI модуль
+        this.ui.showLoading(mainContent);
         
         try {
             this.allCountries = await this.api.fetchAllCountries();
             console.log('Страны загружены:', this.allCountries.length);
             
             const firstCountry = this.allCountries[0];
-            console.log('Первая страна:', firstCountry.name);
-            
-            const mainContent = document.querySelector('.main-content .container');
-            if (mainContent) {
-                mainContent.innerHTML = `
-                    <div style="background: #e8f4f8; padding: 20px; border-radius: 10px;">
-                        <h2>Данные успешно загружены</h2>
-                        <p>Загружено стран: <strong>${this.allCountries.length}</strong></p>
-                        <p>Пример: ${firstCountry.name} (${firstCountry.capital})</p>
-                    </div>
-                `;
-            }
+            this.ui.showSuccess(mainContent, this.allCountries, firstCountry);
             
         } catch (error) {
             console.error('Ошибка:', error);
-            const mainContent = document.querySelector('.main-content .container');
-            if (mainContent) {
-                mainContent.innerHTML = `
-                    <div style="background: #fee; padding: 20px; border-radius: 10px; color: #c0392b;">
-                        <h2>❌ Ошибка загрузки</h2>
-                        <p>Не удалось загрузить данные о странах.</p>
-                        <p>Проверьте подключение к интернету.</p>
-                    </div>
-                `;
-            }
+            this.ui.showError(mainContent, error.message);
         }
     }
 }
 
+// Запуск приложения
 const app = new App();
