@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Каталог стран</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Экран приветствия -->
+    <div id="welcome-screen" class="welcome-screen">
+        <div class="welcome-card">
+            <h1>🌍 Добро пожаловать в каталог стран</h1>
+            <p>Исследуйте информацию о всех странах мира</p>
+            
+            <form id="welcome-form">
+                <div class="input-group">
+                    <label for="user-name">Как вас зовут?</label>
+                    <input type="text" id="user-name" placeholder="Введите ваше имя" required>
+                </div>
+                <button type="submit" class="btn-primary">Далее →</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Основное приложение -->
+    <div id="main-app" style="display: none;">
+        <header class="header">
+            <div class="container">
+                <div class="header-content">
+                    <h1>🌍 Каталог стран</h1>
+                    <div id="greeting" class="greeting"></div>
+                </div>
+            </div>
+        </header>
+        
+        <main class="main-content">
+            <div class="container">
+                <p>Здесь будут карточки стран...</p>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
