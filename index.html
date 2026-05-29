@@ -34,6 +34,74 @@
             </div>
         </header>
         
+        <!-- Панель управления -->
+<div class="controls-panel">
+    <div class="container">
+        <div class="controls-grid">
+            <!-- Сортировка -->
+            <div class="control-group">
+                <label for="sort-select">📊 Сортировать по:</label>
+                <select id="sort-select">
+                    <option value="name">Названию (А-Я)</option>
+                    <option value="population">Населению (убывание)</option>
+                    <option value="area">Площади (убывание)</option>
+                </select>
+            </div>
+
+            <!-- Фильтр по региону -->
+            <div class="control-group">
+                <label for="region-filter">🌎 Регион:</label>
+                <select id="region-filter">
+                    <option value="all">Все регионы</option>
+                </select>
+            </div>
+
+            <!-- Поиск -->
+            <div class="control-group">
+                <label for="search-input">🔍 Поиск по названию:</label>
+                <input type="text" id="search-input" placeholder="Например: Russia, Germany...">
+            </div>
+
+            <!-- Чекбокс независимости -->
+            <div class="control-group checkbox-group">
+                <label>
+                    <input type="checkbox" id="independent-filter">
+                    🏳️ Только независимые страны
+                </label>
+            </div>
+
+            <!-- Кнопка сброса -->
+            <div class="control-group">
+                <button id="reset-filters" class="btn-secondary">🔄 Сбросить фильтры</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Статистика -->
+<div class="stats-panel">
+    <div class="container">
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value" id="total-count">0</div>
+                <div class="stat-label">Всего стран</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="avg-population">0</div>
+                <div class="stat-label">Среднее население</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="avg-area">0</div>
+                <div class="stat-label">Средняя площадь (км²)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="filtered-count">0</div>
+                <div class="stat-label">Отображается стран</div>
+            </div>
+        </div>
+    </div>
+</div>
+
         <main class="main-content">
             <div class="container">
                 <p>Здесь будут карточки стран...</p>

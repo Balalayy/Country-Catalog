@@ -2,10 +2,15 @@ export default class CountriesAPI {
     async fetchAllCountries() {
         console.log('Начинаем загрузку стран...');
         
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 30000);
+        
         try {
-            const response = await fetch('https://restcountries.com/v3.1/all?fields=name,capital,region,population,area,independent,flags,languages');
+            const response = await fetch('https://restcountries.com/v3.1/all?fields=name,capital,region,population,area,independent,flags,languages', {
+                signal: controller.signal
+            });
             
-            console.log('Статус ответа:', response.status);
+            clearTimeout(timeoutId);
             
             if (!response.ok) {
                 throw new Error(`HTTP ошибка: ${response.status}`);
@@ -27,8 +32,14 @@ export default class CountriesAPI {
             }));
             
         } catch (error) {
+            clearTimeout(timeoutId);
             console.error('Ошибка загрузки:', error);
-            throw error;
+            
+            if (error.name === 'AbortError') {
+                throw new Error('Превышено время ожидания ответа от сервера');
+            }
+            
+            throw new Error(`Не удалось загрузить данные: ${error.message}`);
         }
     }
 }
