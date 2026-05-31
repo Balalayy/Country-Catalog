@@ -1,10 +1,11 @@
-/* Общие стили */
+/* Сброс отступов */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* Основные стили */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
@@ -24,6 +25,7 @@ body {
     z-index: 1000;
 }
 
+/* Карточка приветствия */
 .welcome-card {
     background: white;
     border-radius: 20px;
@@ -45,6 +47,7 @@ body {
     margin-bottom: 30px;
 }
 
+/* Поля ввода на экране приветствия */
 .input-group {
     margin-bottom: 25px;
     text-align: left;
@@ -70,6 +73,7 @@ body {
     border-color: #3498db;
 }
 
+/* Кнопка "Далее" */
 .btn-primary {
     background: linear-gradient(135deg, #3498db, #2c3e50);
     color: white;
@@ -87,7 +91,7 @@ body {
     box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
 }
 
-/* Контейнер */
+/* Контейнер для ограничения ширины контента */
 .container {
     max-width: 1400px;
     margin: 0 auto;
@@ -102,6 +106,7 @@ body {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* Содержимое шапки */
 .header-content {
     display: flex;
     justify-content: space-between;
@@ -116,6 +121,7 @@ body {
     margin: 0;
 }
 
+/* Приветствие пользователя */
 .greeting {
     background: rgba(255, 255, 255, 0.2);
     padding: 8px 20px;
@@ -130,7 +136,7 @@ body {
     min-height: calc(100vh - 80px);
 }
 
-/* Карточки стран */
+/* Сетка карточек стран */
 .countries-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -138,6 +144,7 @@ body {
     margin-top: 20px;
 }
 
+/* Карточка страны */
 .country-card {
     background: white;
     border-radius: 15px;
@@ -151,6 +158,7 @@ body {
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
 }
 
+/* Флаг страны */
 .flag-container {
     height: 160px;
     overflow: hidden;
@@ -160,6 +168,7 @@ body {
     justify-content: center;
 }
 
+/* Изображение флага */
 .country-flag {
     width: 100%;
     height: 100%;
@@ -171,10 +180,12 @@ body {
     transform: scale(1.05);
 }
 
+/* Информация о стране */
 .country-info {
     padding: 20px;
 }
 
+/* Название страны */
 .country-name {
     font-size: 22px;
     font-weight: bold;
@@ -184,6 +195,7 @@ body {
     padding-bottom: 8px;
 }
 
+/* Детальная информация */
 .country-detail {
     display: flex;
     justify-content: space-between;
@@ -191,17 +203,20 @@ body {
     font-size: 14px;
 }
 
+/* Название поля */
 .detail-label {
     font-weight: 600;
     color: #7f8c8d;
 }
 
+/* Значение поля */
 .detail-value {
     color: #2c3e50;
     font-weight: 500;
     text-align: right;
 }
 
+/* Бейдж независимости/зависимости */
 .independent-badge {
     display: inline-block;
     background: #27ae60;
@@ -227,6 +242,7 @@ body {
     z-index: 100;
 }
 
+/* Сетка элементов управления */
 .controls-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -234,6 +250,7 @@ body {
     align-items: end;
 }
 
+/* Группа элемента управления */
 .control-group {
     display: flex;
     flex-direction: column;
@@ -261,6 +278,7 @@ body {
     border-color: #3498db;
 }
 
+/* Чекбокс */
 .checkbox-group {
     flex-direction: row;
     align-items: center;
@@ -278,6 +296,7 @@ body {
     cursor: pointer;
 }
 
+/* Кнопка сброса фильтров */
 .btn-secondary {
     background: #e74c3c;
     color: white;
@@ -294,18 +313,20 @@ body {
     background: #c0392b;
 }
 
-/* Статистика */
+/* Панель статистики */
 .stats-panel {
     background: #2c3e50;
     padding: 20px 0;
 }
 
+/* Сетка статистики */
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
 }
 
+/* Карточка статистики */
 .stat-card {
     text-align: center;
     padding: 15px;
@@ -318,6 +339,7 @@ body {
     transform: translateY(-3px);
 }
 
+/* Числовое значение статистики */
 .stat-value {
     font-size: 32px;
     font-weight: bold;
@@ -325,6 +347,7 @@ body {
     margin-bottom: 5px;
 }
 
+/* Подпись статистики */
 .stat-label {
     font-size: 14px;
     color: white;
@@ -370,7 +393,7 @@ body {
     color: #7f8c8d;
 }
 
-/* Ошибка */
+/* Сообщение об ошибке */
 .error-container {
     text-align: center;
     padding: 60px 20px;
@@ -395,6 +418,7 @@ body {
     margin-bottom: 25px;
 }
 
+/* Кнопка повторной попытки */
 .btn-retry {
     background: #3498db;
     color: white;
@@ -410,14 +434,7 @@ body {
     background: #2980b9;
 }
 
-/* Планшеты */
-@media (min-width: 769px) and (max-width: 1024px) {
-    .countries-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-/* Анимация для карточек при загрузке */
+/* Анимация появления карточек */
 .country-card {
     animation: fadeInUp 0.5s ease forwards;
     opacity: 0;
@@ -434,7 +451,7 @@ body {
     }
 }
 
-/* Стили для скроллбара */
+/* Скроллбар */
 ::-webkit-scrollbar {
     width: 10px;
     height: 10px;
@@ -453,7 +470,7 @@ body {
     background: #2c3e50;
 }
 
-/* Кнопка выхода */
+/* Кнопка выхода из аккаунта */
 .logout-btn {
     background: rgba(255, 255, 255, 0.2);
     color: white;

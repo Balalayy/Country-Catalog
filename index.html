@@ -25,12 +25,14 @@
 
     <!-- Основное приложение -->
     <div id="main-app" style="display: none;">
+        
+        <!-- Шапка -->
         <header class="header">
             <div class="container">
                 <div class="header-content">
                     <h1>🌍 Каталог стран</h1>
                     <div style="display: flex; align-items: center; gap: 20px;">
-                         <div id="greeting" class="greeting"></div>
+                        <div id="greeting" class="greeting"></div>
                         <button id="logout-btn" class="logout-btn" title="Выйти из аккаунта">🚪 Выйти</button>
                     </div>
                 </div>
@@ -38,80 +40,80 @@
         </header>
         
         <!-- Панель управления -->
-<div class="controls-panel">
-    <div class="container">
-        <div class="controls-grid">
-            
-            <!-- Сортировка -->
-            <div class="control-group">
-                <label for="sort-select">📊 Сортировать по:</label>
-                <select id="sort-select">
-                    <option value="name_asc">Названию (А-Я)</option>
-                    <option value="name_desc">Названию (Я-А)</option>
-                    <option value="population_asc">Населению (по возрастанию)</option>
-                    <option value="population_desc">Населению (по убыванию)</option>
-                    <option value="area_asc">Площади (по возрастанию)</option>
-                    <option value="area_desc">Площади (по убыванию)</option>
-                </select>
-            </div>
+        <div class="controls-panel">
+            <div class="container">
+                <div class="controls-grid">
+                    
+                    <!-- Сортировка -->
+                    <div class="control-group">
+                        <label for="sort-select">📊 Сортировать по:</label>
+                        <select id="sort-select">
+                            <option value="name_asc">Названию (А-Я)</option>
+                            <option value="name_desc">Названию (Я-А)</option>
+                            <option value="population_asc">Населению (по возрастанию)</option>
+                            <option value="population_desc">Населению (по убыванию)</option>
+                            <option value="area_asc">Площади (по возрастанию)</option>
+                            <option value="area_desc">Площади (по убыванию)</option>
+                        </select>
+                    </div>
 
-            <!-- Фильтр по региону -->
-            <div class="control-group">
-                <label for="region-filter">🌎 Регион:</label>
-                <select id="region-filter">
-                    <option value="all">Все регионы</option>
-                </select>
-            </div>
+                    <!-- Фильтр по региону -->
+                    <div class="control-group">
+                        <label for="region-filter">🌎 Регион:</label>
+                        <select id="region-filter">
+                            <option value="all">Все регионы</option>
+                        </select>
+                    </div>
 
-            <!-- Поиск -->
-            <div class="control-group">
-                <label for="search-input">🔍 Поиск по названию:</label>
-                <input type="text" id="search-input" placeholder="Например: Russia, Germany...">
-            </div>
+                    <!-- Поиск -->
+                    <div class="control-group">
+                        <label for="search-input">🔍 Поиск по названию:</label>
+                        <input type="text" id="search-input" placeholder="Например: Russia, Germany...">
+                    </div>
 
-            <!-- Чекбокс независимости -->
-            <div class="control-group checkbox-group">
-                <label>
-                    <input type="checkbox" id="independent-filter">
-                    🏳️ Только независимые страны
-                </label>
-            </div>
+                    <!-- Фильтр независимости -->
+                    <div class="control-group checkbox-group">
+                        <label>
+                            <input type="checkbox" id="independent-filter">
+                            🏳️ Только независимые страны
+                        </label>
+                    </div>
 
-            <!-- Кнопка сброса -->
-            <div class="control-group">
-                <button id="reset-filters" class="btn-secondary">🔄 Сбросить фильтры</button>
+                    <!-- Сброс фильтров -->
+                    <div class="control-group">
+                        <button id="reset-filters" class="btn-secondary">🔄 Сбросить фильтры</button>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
 
-<!-- Статистика -->
-<div class="stats-panel">
-    <div class="container">
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-value" id="total-count">0</div>
-                <div class="stat-label">Всего стран</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value" id="avg-population">0</div>
-                <div class="stat-label">Среднее население</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value" id="avg-area">0</div>
-                <div class="stat-label">Средняя площадь (км²)</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value" id="filtered-count">0</div>
-                <div class="stat-label">Отображается стран</div>
+        <!-- Статистика -->
+        <div class="stats-panel">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value" id="total-count">0</div>
+                        <div class="stat-label">Всего стран</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="avg-population">0</div>
+                        <div class="stat-label">Среднее население</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="avg-area">0</div>
+                        <div class="stat-label">Средняя площадь (км²)</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="filtered-count">0</div>
+                        <div class="stat-label">Отображается стран</div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
 
+        <!-- Карточки стран -->
         <main class="main-content">
             <div class="container">
-                <p>Здесь будут карточки стран...</p>
             </div>
         </main>
     </div>

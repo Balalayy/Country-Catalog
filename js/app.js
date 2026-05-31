@@ -14,6 +14,7 @@ class App {
         this.init();
     }
 
+    // Проверка сохранённого имени
     async init() {
         const savedName = this.storage.getUserName();
         
@@ -25,6 +26,7 @@ class App {
         }
     }
 
+    // Экран приветствия
     showWelcomeScreen() {
         const welcomeScreen = document.getElementById('welcome-screen');
         const mainApp = document.getElementById('main-app');
@@ -48,6 +50,7 @@ class App {
         });
     }
 
+    // Основное приложения
     showMainApp(name) {
         const welcomeScreen = document.getElementById('welcome-screen');
         const mainApp = document.getElementById('main-app');
@@ -61,6 +64,7 @@ class App {
         }
     }
 
+    // Загрузка стран из API
     async loadCountries() {
         const mainContent = document.querySelector('.main-content .container');
         this.ui.showLoading(mainContent);
@@ -79,6 +83,7 @@ class App {
         }
     }
 
+    // Заполнение списка регионов
     populateRegionFilter() {
         const regionFilter = document.getElementById('region-filter');
         if (!regionFilter) return;
@@ -94,6 +99,7 @@ class App {
         });
     }
 
+    // Применение фильтров и сортировки
     applyFilters() {
         if (!this.allCountries.length) return;
         
@@ -136,7 +142,7 @@ class App {
             filtered.sort((a, b) => a.area - b.area);
         } else if (sortBy === 'area_desc') {
             filtered.sort((a, b) => b.area - a.area);
-}
+        }
         
         this.filteredCountries = filtered;
         
@@ -148,8 +154,8 @@ class App {
         this.updateStatistics();
     }
 
+    // Обновление панели статистики
     updateStatistics() {
-        // Используем методы из модуля статистики
         const totalCount = this.stats.getTotalCount(this.allCountries);
         const filteredCount = this.stats.getTotalCount(this.filteredCountries);
         const avgPopulation = this.stats.getAveragePopulation(this.filteredCountries);
@@ -161,6 +167,7 @@ class App {
         document.getElementById('avg-area').textContent = this.stats.formatNumber(avgArea);
     }
 
+    // Форматирование чисел
     formatNumber(num) {
         if (num >= 1000000000) return (num / 1000000000).toFixed(1) + ' млрд';
         if (num >= 1000000) return (num / 1000000).toFixed(1) + ' млн';
@@ -168,6 +175,7 @@ class App {
         return num.toLocaleString();
     }
 
+    // Элементы управления
     bindEvents() {
 
         // Сортировка
@@ -198,11 +206,11 @@ class App {
             });
         }
         
-        // Кнопка сброса
+        // Кнопка сброса фильтров
         const resetButton = document.getElementById('reset-filters');
         if (resetButton) {
-             resetButton.addEventListener('click', () => {
-                if (sortSelect) sortSelect.value = 'name_asc';  // Было 'name'
+            resetButton.addEventListener('click', () => {
+                if (sortSelect) sortSelect.value = 'name_asc';
                 if (regionFilter) regionFilter.value = 'all';
                 const searchInput = document.getElementById('search-input');
                 if (searchInput) searchInput.value = '';
@@ -214,29 +222,22 @@ class App {
         // Кнопка выхода
         const logoutBtn = document.getElementById('logout-btn');
         if (logoutBtn) {
-        logoutBtn.addEventListener('click', () => this.logout());
+            logoutBtn.addEventListener('click', () => this.logout());
         }
     }
 
+    // Выход из аккаунта
     logout() {
-    // Очищаем сохранённое имя пользователя
-    this.storage.clearUserData();
-    
-    // Очищаем данные о странах
-    this.allCountries = [];
-    this.filteredCountries = [];
-    
-    // Показываем экран приветствия
-    this.showWelcomeScreen();
-    
-    // Очищаем поля ввода, если они были заполнены
-    const nameInput = document.getElementById('user-name');
-    if (nameInput) {
-        nameInput.value = '';
+        this.storage.clearUserData();
+        this.allCountries = [];
+        this.filteredCountries = [];
+        this.showWelcomeScreen();
+        
+        const nameInput = document.getElementById('user-name');
+        if (nameInput) {
+            nameInput.value = '';
+        }
     }
-    
-    console.log('Пользователь вышел из аккаунта');
-}
 }
 
 const app = new App();

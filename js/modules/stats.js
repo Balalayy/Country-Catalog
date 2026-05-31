@@ -61,17 +61,5 @@ export default class StatisticsCalculator {
         return num.toLocaleString();
     }
 
-    // Получение полной статистики
-    getCompleteStats(allCountries, filteredCountries) {
-        return {
-            totalCountries: this.getTotalCount(allCountries),
-            filteredCountries: this.getTotalCount(filteredCountries),
-            avgPopulation: this.getAveragePopulation(filteredCountries),
-            avgArea: this.getAverageArea(filteredCountries),
-            medianPopulation: this.getMedianPopulation(filteredCountries),
-            independentCount: this.getIndependentCount(filteredCountries),
-            mostPopulous: this.getMostPopulousCountry(filteredCountries),
-            largestArea: this.getLargestCountryByArea(filteredCountries)
-        };
-    }
+
 }

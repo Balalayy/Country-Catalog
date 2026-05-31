@@ -1,4 +1,6 @@
 export default class CountriesUI {
+    
+    // Отображение индикатора загрузки
     showLoading(container) {
         if (!container) return;
         container.innerHTML = `
@@ -9,9 +11,11 @@ export default class CountriesUI {
         `;
     }
 
+    // Отрисовка карточек стран
     renderCountries(container, countries) {
         if (!container) return;
         
+        // Пустое состояние
         if (!countries || countries.length === 0) {
             container.innerHTML = `
                 <div class="empty-state">
@@ -23,6 +27,7 @@ export default class CountriesUI {
             return;
         }
 
+        // Генерация карточек
         const cardsHTML = countries.map(country => `
             <div class="country-card">
                 <div class="flag-container">
@@ -58,7 +63,7 @@ export default class CountriesUI {
         container.innerHTML = `<div class="countries-grid">${cardsHTML}</div>`;
     }
 
-    // Методы форматирования
+    // Форматирование населения
     formatPopulation(population) {
         if (population >= 1000000000) return (population / 1000000000).toFixed(1) + ' млрд';
         if (population >= 1000000) return (population / 1000000).toFixed(1) + ' млн';
@@ -66,17 +71,20 @@ export default class CountriesUI {
         return population.toLocaleString();
     }
 
+    // Форматирование площади
     formatArea(area) {
         if (area >= 1000000) return (area / 1000000).toFixed(1) + ' млн';
         return area.toLocaleString();
     }
 
+    // Форматирование списка языков
     formatLanguages(languages) {
         if (!languages || languages.length === 0) return 'Нет данных';
         if (languages.length <= 2) return languages.join(', ');
         return languages.slice(0, 2).join(', ') + '...';
     }
 
+    // Отображение ошибки
     showError(container, message) {
         if (!container) return;
         container.innerHTML = `
@@ -89,6 +97,7 @@ export default class CountriesUI {
         `;
     }
 
+    // Экранирование HTML
     escapeHtml(str) {
         if (!str) return '';
         const div = document.createElement('div');
