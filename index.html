@@ -29,7 +29,10 @@
             <div class="container">
                 <div class="header-content">
                     <h1>🌍 Каталог стран</h1>
-                    <div id="greeting" class="greeting"></div>
+                    <div style="display: flex; align-items: center; gap: 20px;">
+                         <div id="greeting" class="greeting"></div>
+                        <button id="logout-btn" class="logout-btn" title="Выйти из аккаунта">🚪 Выйти</button>
+                    </div>
                 </div>
             </div>
         </header>
@@ -38,13 +41,17 @@
 <div class="controls-panel">
     <div class="container">
         <div class="controls-grid">
+            
             <!-- Сортировка -->
             <div class="control-group">
                 <label for="sort-select">📊 Сортировать по:</label>
                 <select id="sort-select">
-                    <option value="name">Названию (А-Я)</option>
-                    <option value="population">Населению (убывание)</option>
-                    <option value="area">Площади (убывание)</option>
+                    <option value="name_asc">Названию (А-Я)</option>
+                    <option value="name_desc">Названию (Я-А)</option>
+                    <option value="population_asc">Населению (по возрастанию)</option>
+                    <option value="population_desc">Населению (по убыванию)</option>
+                    <option value="area_asc">Площади (по возрастанию)</option>
+                    <option value="area_desc">Площади (по убыванию)</option>
                 </select>
             </div>
 

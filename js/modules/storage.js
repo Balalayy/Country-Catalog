@@ -6,4 +6,8 @@ export default class UserStorage {
     getUserName() {
         return localStorage.getItem('catalog_user');
     }
+
+    clearUserData() {
+        localStorage.removeItem('catalog_user');
+    }
 }

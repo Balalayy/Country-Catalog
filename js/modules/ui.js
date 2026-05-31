@@ -9,7 +9,6 @@ export default class CountriesUI {
         `;
     }
 
-    // Отображение карточек стран
     renderCountries(container, countries) {
         if (!container) return;
         
@@ -59,19 +58,7 @@ export default class CountriesUI {
         container.innerHTML = `<div class="countries-grid">${cardsHTML}</div>`;
     }
 
-    showError(container, message) {
-        if (!container) return;
-        container.innerHTML = `
-            <div class="error-container">
-                <div class="error-icon">⚠️</div>
-                <h2>Ошибка загрузки данных</h2>
-                <p>${message}</p>
-                <button onclick="location.reload()" class="btn-retry">🔄 Попробовать снова</button>
-            </div>
-        `;
-    }
-
-    // Методы для форматирования
+    // Методы форматирования
     formatPopulation(population) {
         if (population >= 1000000000) return (population / 1000000000).toFixed(1) + ' млрд';
         if (population >= 1000000) return (population / 1000000).toFixed(1) + ' млн';
@@ -90,26 +77,22 @@ export default class CountriesUI {
         return languages.slice(0, 2).join(', ') + '...';
     }
 
+    showError(container, message) {
+        if (!container) return;
+        container.innerHTML = `
+            <div class="error-container">
+                <div class="error-icon">⚠️</div>
+                <h2>Ошибка загрузки данных</h2>
+                <p>${message}</p>
+                <button onclick="location.reload()" class="btn-retry">🔄 Попробовать снова</button>
+            </div>
+        `;
+    }
+
     escapeHtml(str) {
         if (!str) return '';
         const div = document.createElement('div');
         div.textContent = str;
         return div.innerHTML;
-    }
-
-    showSuccess(container, countries, firstCountry) {
-        this.renderCountries(container, countries);
-    }
-
-    showError(container, message) {
-        if (!container) return;
-        container.innerHTML = `
-            <div style="background: #fee; padding: 20px; border-radius: 10px; color: #c0392b;">
-                <h2>❌ Ошибка загрузки</h2>
-                <p>Не удалось загрузить данные о странах.</p>
-                <p>Проверьте подключение к интернету.</p>
-                <p>Детали: ${message}</p>
-            </div>
-        `;
     }
 }

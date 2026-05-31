@@ -1,12 +1,14 @@
 import UserStorage from './modules/storage.js';
 import CountriesAPI from './modules/api.js';
 import CountriesUI from './modules/ui.js';
+import StatisticsCalculator from './modules/stats.js';
 
 class App {
     constructor() {
         this.storage = new UserStorage();
         this.api = new CountriesAPI();
         this.ui = new CountriesUI();
+        this.stats = new StatisticsCalculator();
         this.allCountries = [];
         this.filteredCountries = [];
         this.init();
@@ -95,7 +97,6 @@ class App {
     applyFilters() {
         if (!this.allCountries.length) return;
         
-        // Получаем значения фильтров
         const sortBy = document.getElementById('sort-select')?.value || 'name';
         const region = document.getElementById('region-filter')?.value || 'all';
         const searchTerm = document.getElementById('search-input')?.value || '';
@@ -123,13 +124,19 @@ class App {
         }
         
         // Сортировка
-        if (sortBy === 'name') {
+        if (sortBy === 'name_asc') {
             filtered.sort((a, b) => a.name.localeCompare(b.name));
-        } else if (sortBy === 'population') {
+        } else if (sortBy === 'name_desc') {
+            filtered.sort((a, b) => b.name.localeCompare(a.name));
+        } else if (sortBy === 'population_asc') {
+            filtered.sort((a, b) => a.population - b.population);
+        } else if (sortBy === 'population_desc') {
             filtered.sort((a, b) => b.population - a.population);
-        } else if (sortBy === 'area') {
+        } else if (sortBy === 'area_asc') {
+            filtered.sort((a, b) => a.area - b.area);
+        } else if (sortBy === 'area_desc') {
             filtered.sort((a, b) => b.area - a.area);
-        }
+}
         
         this.filteredCountries = filtered;
         
@@ -142,33 +149,16 @@ class App {
     }
 
     updateStatistics() {
-        // Общее количество стран
-        const totalCount = this.allCountries.length;
+        // Используем методы из модуля статистики
+        const totalCount = this.stats.getTotalCount(this.allCountries);
+        const filteredCount = this.stats.getTotalCount(this.filteredCountries);
+        const avgPopulation = this.stats.getAveragePopulation(this.filteredCountries);
+        const avgArea = this.stats.getAverageArea(this.filteredCountries);
+        
         document.getElementById('total-count').textContent = totalCount;
-        
-        // Количество отображаемых стран
-        const filteredCount = this.filteredCountries.length;
         document.getElementById('filtered-count').textContent = filteredCount;
-        
-        // Среднее население
-        if (filteredCount > 0) {
-            const avgPopulation = Math.round(
-                this.filteredCountries.reduce((sum, c) => sum + c.population, 0) / filteredCount
-            );
-            document.getElementById('avg-population').textContent = this.formatNumber(avgPopulation);
-        } else {
-            document.getElementById('avg-population').textContent = '0';
-        }
-        
-        // Средняя площадь
-        if (filteredCount > 0) {
-            const avgArea = Math.round(
-                this.filteredCountries.reduce((sum, c) => sum + c.area, 0) / filteredCount
-            );
-            document.getElementById('avg-area').textContent = this.formatNumber(avgArea);
-        } else {
-            document.getElementById('avg-area').textContent = '0';
-        }
+        document.getElementById('avg-population').textContent = this.stats.formatNumber(avgPopulation);
+        document.getElementById('avg-area').textContent = this.stats.formatNumber(avgArea);
     }
 
     formatNumber(num) {
@@ -179,6 +169,7 @@ class App {
     }
 
     bindEvents() {
+
         // Сортировка
         const sortSelect = document.getElementById('sort-select');
         if (sortSelect) {
@@ -210,15 +201,42 @@ class App {
         // Кнопка сброса
         const resetButton = document.getElementById('reset-filters');
         if (resetButton) {
-            resetButton.addEventListener('click', () => {
-                if (sortSelect) sortSelect.value = 'name';
+             resetButton.addEventListener('click', () => {
+                if (sortSelect) sortSelect.value = 'name_asc';  // Было 'name'
                 if (regionFilter) regionFilter.value = 'all';
+                const searchInput = document.getElementById('search-input');
                 if (searchInput) searchInput.value = '';
                 if (independentCheckbox) independentCheckbox.checked = false;
                 this.applyFilters();
             });
         }
+
+        // Кнопка выхода
+        const logoutBtn = document.getElementById('logout-btn');
+        if (logoutBtn) {
+        logoutBtn.addEventListener('click', () => this.logout());
+        }
     }
+
+    logout() {
+    // Очищаем сохранённое имя пользователя
+    this.storage.clearUserData();
+    
+    // Очищаем данные о странах
+    this.allCountries = [];
+    this.filteredCountries = [];
+    
+    // Показываем экран приветствия
+    this.showWelcomeScreen();
+    
+    // Очищаем поля ввода, если они были заполнены
+    const nameInput = document.getElementById('user-name');
+    if (nameInput) {
+        nameInput.value = '';
+    }
+    
+    console.log('Пользователь вышел из аккаунта');
+}
 }
 
 const app = new App();
